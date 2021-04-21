@@ -3,9 +3,7 @@ DELIMITER $$
  
 DROP PROCEDURE IF EXISTS `Menu_GetAllMenus`$$
  
-CREATE PROCEDURE `Menu_GetAllMenus`(
-	IN id INT
-)
+CREATE PROCEDURE `Menu_GetAllMenus`()
 BEGIN
    SELECT *  FROM menu;
 END$$
