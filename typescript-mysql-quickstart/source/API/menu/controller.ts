@@ -4,6 +4,43 @@ import { Connect, Query } from "../../config/mysql";
 
 const NAMESPACE = "Menu Controller";
 
+const GetAllMenus = (req: Request, res: Response, next: NextFunction) => {
+	logging.info(NAMESPACE, "GetAllMenus");
+
+	let query = `CALL Menu_GetAllMenus()`;
+
+	Connect()
+		.then((connection) => {
+			Query(connection, query)
+				.then((results: any) => {
+					return res.status(200).json({
+						data: results,
+						message: "Get succeed",
+						statusCode: 200,
+					});
+				})
+				.catch((error) => {
+					logging.error(NAMESPACE, error.message, error);
+					return res.status(500).json({
+						message: error.message,
+						// errors: "Loi tim kiem k co",
+						error,
+					});
+				})
+				.finally(() => {
+					connection.end();
+				});
+		})
+		.catch((error) => {
+			logging.error(NAMESPACE, error.message, error);
+
+			return res.status(500).json({
+				message: error.message,
+				error,
+			});
+		});
+};
+
 const GetMenuInfo = (req: Request, res: Response, next: NextFunction) => {
 	logging.info(NAMESPACE, "GetMenuInfo");
 	const id = Number(req.params.id);
@@ -127,4 +164,4 @@ const Delete = (req: Request, res: Response, next: NextFunction) => {
 		});
 };
 
-export { GetMenuInfo, SaveMenu, Delete };
+export { GetAllMenus, GetMenuInfo, SaveMenu, Delete };
