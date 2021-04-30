@@ -35,7 +35,7 @@ DELIMITER ;
 DELIMITER $$
  
 DROP PROCEDURE IF EXISTS `Menu_SaveMenu`$$
- 
+ -- add in url varchar(255)
 CREATE PROCEDURE `Menu_SaveMenu`(
 	IN id_menu INT,
     IN name_product VARCHAR(50),
@@ -60,6 +60,7 @@ BEGIN
                     SET result = 0
             END
         ELSE 
+		-- insert luon url o ben tren vao bang img voi obj_id la id obj_type = 1 (type cua menu la 1)
             INSERT INTO menu SET name_product = name_product, description = description, id_category = id_category, sold = sold, create_at = create_at, priceM = priceM, priceL = priceL
     END
     SELECT result
@@ -77,6 +78,7 @@ CREATE PROCEDURE `Menu_Delete`(
 	IN ids VARCHAR LONGTEXT
 )
 BEGIN
+	-- delete 1 item thi delete img cua no o bang img luon nha
    DELETE FROM menu WHERE FIND_IN_SET(id_menu, ids);
 END$$
  
