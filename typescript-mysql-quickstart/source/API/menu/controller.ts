@@ -91,7 +91,7 @@ const SaveMenu = (req: Request, res: Response, next: NextFunction) => {
 		priceM,
 		priceL,
 	} = req.body;
-
+// add url img (1);
 	let query = `CALL Menu_SaveMenu("${id_menu}","${name_product}","${description}","${id_category}","${sold}","${create_at}","${priceM}","${priceL}")`;
 
 	Connect()
